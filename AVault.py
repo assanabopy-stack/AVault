@@ -18,11 +18,11 @@ class Vault:
         self.key_path = os.path.expanduser("~/.sstm/keyp.key")
 
         if not os.path.exists(self.key_path):
-            self.key = Fernet.generate_key()  # 32-byte URL-safe
+            self.key = Fernet.generate_key()
             with open(self.key_path, "wb") as f:
                 f.write(self.key)
         else:
-            with open(self.key_path, "rb") as f:  # اقرأ كـ bytes
+            with open(self.key_path, "rb") as f:
                 self.key = f.read()
 
 
@@ -58,7 +58,7 @@ class Vault:
     def get_entry(self):
         self.paswd = self.en1.get()
         if self.paswd == "":
-            self.la1.config(text="Password cannot be empty 😏")
+            self.la1.config(text="Password cannot be empty")
             return
         self.shfra()
 
@@ -83,7 +83,7 @@ class Vault:
             encrypted = cipher.encrypt(self.paswd.encode())
             with open(path, "wb") as f:
                 f.write(encrypted)
-            print("Password saved ✅")
+            print("Password saved")
             self.open_vault()
             return
 
